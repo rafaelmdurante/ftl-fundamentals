@@ -36,7 +36,7 @@ func TestSubtract(t *testing.T) {
 	for _, tc := range testCases {
 		got := calculator.Subtract(tc.a, tc.b)
 		if tc.want != got {
-			t.Errorf("Add(%f, %f): want %f, got %f", tc.a, tc.b, tc.want, got)
+			t.Errorf("Subtract(%f, %f): want %f, got %f", tc.a, tc.b, tc.want, got)
 		}
 	}
 }
@@ -52,7 +52,30 @@ func TestMultiply(t *testing.T) {
 	for _, tc := range testCases {
 		got := calculator.Multiply(tc.a, tc.b)
 		if tc.want != got {
-			t.Errorf("Add(%f, %f): want %f, got %f", tc.a, tc.b, tc.want, got)
+			t.Errorf("Multiply(%f, %f): want %f, got %f", tc.a, tc.b, tc.want, got)
+		}
+	}
+}
+
+func TestDivide(t *testing.T) {
+	t.Parallel()
+	type testCase struct {
+		a, b, want  float64
+		errExpected bool
+	}
+	testCases := []testCase{
+		{a: 6, b: 0, want: 0, errExpected: true},
+		{a: 6, b: 3, want: 2, errExpected: false},
+		{a: 3, b: 2, want: 1.5, errExpected: false},
+	}
+	for _, tc := range testCases {
+		got, err := calculator.Divide(tc.a, tc.b)
+		errReceived := err != nil
+		if errReceived != tc.errExpected {
+			t.Fatalf("Divide(%f, %f): unexpected error: %v", tc.a, tc.b, err)
+		}
+		if !tc.errExpected && tc.want != got {
+			t.Errorf("Divide(%f, %f): want %f, got %f", tc.a, tc.b, tc.want, got)
 		}
 	}
 }
