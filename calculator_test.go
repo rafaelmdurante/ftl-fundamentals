@@ -119,3 +119,22 @@ func TestSqrt(t *testing.T) {
 		}
 	}
 }
+
+func TestAddMany(t *testing.T) {
+	t.Parallel()
+	type testCase struct {
+		inputs []float64
+		want   float64
+	}
+	testCases := []testCase{
+		{inputs: []float64{1, 2}, want: 3},
+		{inputs: []float64{1, 2, 3}, want: 6},
+		{inputs: []float64{1, 2, 3, 4, 5}, want: 15},
+	}
+	for _, tc := range testCases {
+		got := calculator.AddMany(tc.inputs...)
+		if got != tc.want {
+			t.Errorf("AddMany(%v): want: %f, got: %f", tc.inputs, tc.want, got)
+		}
+	}
+}

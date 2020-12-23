@@ -11,6 +11,15 @@ func Add(a, b float64) float64 {
 	return a + b
 }
 
+// AddMany takes all numbers and returns the result of adding them together.
+func AddMany(inputs ...float64) float64 {
+	sum := 0.
+	for _, v := range inputs {
+		sum += v
+	}
+	return sum
+}
+
 // Subtract takes two numbers and returns the result of subtracting the second
 // from the first.
 func Subtract(a, b float64) float64 {
