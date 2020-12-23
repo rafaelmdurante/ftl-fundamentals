@@ -26,6 +26,17 @@ func Subtract(a, b float64) float64 {
 	return a - b
 }
 
+// SubtractMany takes all numbers and returns the result of subtracting them.
+func SubtractMany(inputs ...float64) float64 {
+	// store the first input
+	result := inputs[0]
+	// iterate from input 1 to the end
+	for _, v := range inputs[1:] {
+		result -= v
+	}
+	return result
+}
+
 // Multiply takes two numbers and returns the result of multiplying them
 func Multiply(a, b float64) float64 {
 	return a * b

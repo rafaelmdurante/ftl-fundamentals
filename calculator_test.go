@@ -120,13 +120,14 @@ func TestSqrt(t *testing.T) {
 	}
 }
 
+type manyArgsTestCase struct {
+	inputs []float64
+	want   float64
+}
+
 func TestAddMany(t *testing.T) {
 	t.Parallel()
-	type testCase struct {
-		inputs []float64
-		want   float64
-	}
-	testCases := []testCase{
+	testCases := []manyArgsTestCase{
 		{inputs: []float64{1, 2}, want: 3},
 		{inputs: []float64{1, 2, 3}, want: 6},
 		{inputs: []float64{1, 2, 3, 4, 5}, want: 15},
@@ -135,6 +136,21 @@ func TestAddMany(t *testing.T) {
 		got := calculator.AddMany(tc.inputs...)
 		if got != tc.want {
 			t.Errorf("AddMany(%v): want: %f, got: %f", tc.inputs, tc.want, got)
+		}
+	}
+}
+
+func TestSubtractMany(t *testing.T) {
+	t.Parallel()
+	testCases := []manyArgsTestCase{
+		{inputs: []float64{8, 2}, want: 6},
+		{inputs: []float64{7, 2, 3}, want: 2},
+		{inputs: []float64{10, 2, 3, 4, 5}, want: -4},
+	}
+	for _, tc := range testCases {
+		got := calculator.SubtractMany(tc.inputs...)
+		if got != tc.want {
+			t.Errorf("SubtractMany(%v): want: %f, got: %f", tc.inputs, tc.want, got)
 		}
 	}
 }
