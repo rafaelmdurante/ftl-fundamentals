@@ -154,3 +154,23 @@ func TestSubtractMany(t *testing.T) {
 		}
 	}
 }
+
+func TestEvaluate(t *testing.T) {
+	t.Parallel()
+	type testCase struct {
+		input string
+		want  float64
+	}
+	testCases := []testCase{
+		{input: "2 * 2", want: 4},
+		{input: "1 + 1.5", want: 2.5},
+		{input: "18  /   6", want: 3},
+		{input: "100 - 0.1", want: 99.9},
+	}
+	for _, tc := range testCases {
+		got := calculator.Evaluate(tc.input)
+		if got != tc.want {
+			t.Errorf("Evaluate(%s): want: %v, got: %v", tc.input, tc.want, got)
+		}
+	}
+}

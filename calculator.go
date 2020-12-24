@@ -59,3 +59,30 @@ func Sqrt(num float64) (float64, error) {
 	}
 	return math.Sqrt(num), nil
 }
+
+// Evaluate takes a string of arithmetic operations and returns its result
+// It accepts only two arguments in the arithmetic operation.
+// It handles addition, subtraction, multiplication and division.
+func Evaluate(input string) float64 {
+	var a, b float64
+	var operator string
+
+	_, err := fmt.Sscanf(input, "%f %s %f", &a, &operator, &b)
+	if err != nil {
+		panic(err)
+	}
+
+	var result float64
+	switch operator {
+	case "+":
+		result = a + b
+	case "-":
+		result = a - b
+	case "*":
+		result = a * b
+	case "/":
+		result = a / b
+	}
+
+	return result
+}
